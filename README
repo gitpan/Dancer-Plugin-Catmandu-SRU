@@ -1,17 +1,40 @@
-Dancer-Plugin-Catmandu-SRU
+NAME
+    Dancer::Plugin::Catmandu::SRU - SRU server backed by a searchable
+    Catmandu::Store
 
-INSTALLATION
+SYNOPSIS
+        use Dancer;
+        use Dancer::Plugin::Catmandu::SRU;
 
-To install this module, run the following commands:
+        sru_provider '/sru';
 
-  perl Build.PL
-	./Build
-	./Build test
-	./Build install
+CONFIGURATION
+        plugins:
+            'Catmandu::SRU':
+                store: search
+                bag: publicationItem
+                cql_filter: 'submissionstatus exact public'
+                default_record_schema: mods
+                limit: 200
+                maximum_limit: 500
+                record_schemas:
+                    -
+                        identifier: "info:srw/schema/1/mods-v3.3"
+                        name: mods
+                        fix: 
+                          - publication_to_mods()
+                        template: views/mods.tt
 
-SUPPORT AND DOCUMENTATION
+AUTHOR
+    Nicolas Steenlant, "<nicolas.steenlant at ugent.be>"
 
-After installing, you can find documentation for this module with the
-perldoc command.
+CONTRIBUTOR
+    Vitali Peil, "<vitali.peil at uni-bielefeld.de>"
 
-  perldoc Dancer::Plugin::Catmandu::SRU
+SEE ALSO
+    SRU, Catmandu, Catmandu::Store, Dancer::Plugin::Catmandu::OAI
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
